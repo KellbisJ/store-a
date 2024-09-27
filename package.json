@@ -1,0 +1,28 @@
+{
+  "name": "store-a",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "nodemon": "^3.1.6",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.1",
+    "@hapi/boom": "^10.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "joi": "^17.13.3"
+  }
+}
