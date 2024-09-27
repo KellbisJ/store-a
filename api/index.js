@@ -35,8 +35,6 @@ app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
-});
+app.listen(port);
 
 module.exports = app;

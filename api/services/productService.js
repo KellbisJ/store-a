@@ -21,8 +21,7 @@ class ProductService {
           isBlock: faker.datatype.boolean(),
         });
       } catch (error) {
-        console.log(error);
-        console.log(error.message);
+        throw boom.internal(error.message);
       }
     }
   }
@@ -36,7 +35,14 @@ class ProductService {
     return product;
   }
   find() {
-    return this.products;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.products);
+        if (this.products.length === 0) {
+          reject(boom.notFound('No products found'));
+        }
+      }, 2000);
+    });
   }
   findOne(id) {
     const product = this.products.find((product) => product.id === id);

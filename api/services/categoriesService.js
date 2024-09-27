@@ -10,10 +10,14 @@ class CategoriesService {
   generate() {
     const limit = 20;
     for (let i = 0; i < limit; i++) {
-      this.categories.push({
-        id: faker.string.uuid(),
-        name: faker.commerce.department(),
-      });
+      try {
+        this.categories.push({
+          id: faker.string.uuid(),
+          name: faker.commerce.department(),
+        });
+      } catch (error) {
+        throw boom.internal('Error generating categories: ' + error.message);
+      }
     }
   }
   create(data) {
@@ -25,14 +29,24 @@ class CategoriesService {
     return category;
   }
   find() {
-    return this.categories;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.categories);
+        if (this.categories.length === 0) {
+          reject(boom.notFound('No products found'));
+        }
+      }, 2000);
+    });
   }
   findOne(id) {
-    const product = this.categories.find((category) => category.id === id);
-    if (!product) {
-      throw boom.notFound('Product not found');
-    }
-    return product;
+    return new Promise((resolve, reject) => {
+      const category = this.categories.find((category) => category.id === id);
+      if (!category) {
+        reject(boom.notFound('Category not found'));
+      } else {
+        resolve(category);
+      }
+    });
   }
   update(id, data) {
     const index = this.categories.findIndex((category) => category.id === id);
